@@ -43,7 +43,7 @@ function allProducts() {
 
 function purchase() {
     inquirer.prompt([{
-            message: "What is the ID of the product you would like to buy or press Q to quit?",
+            message: "What is the ID of the product you would like to buy?",
             type: "input",
             name: "buyID"
         },
@@ -85,7 +85,7 @@ function purchase() {
                     )
 
                     console.log('Thank you!  The total cost of your purchase was $' + (priceArr[i] * answer.buyUnits).toFixed(2));
-                    purchase();
+                    connection.end();
                 }
 
             }
