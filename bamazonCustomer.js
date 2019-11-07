@@ -15,14 +15,15 @@ var connection = mysql.createConnection({
     password: 'rootroot',
     database: 'bamazon_db'
 });
-
 connection.connect(function(err) {
     if(err) throw err;
     console.log('Connected as id: ' + connection.threadId);
-    allProducts();
 });
 
+allProducts();
+
 function allProducts() {
+
     let query = "SELECT * FROM products";
     connection.query(query, function (err, res) {
         if (err) throw err;
@@ -43,9 +44,16 @@ function allProducts() {
 
 function purchase() {
     inquirer.prompt([{
-            message: "What is the ID of the product you would like to buy?",
+            message: "What is the ID of the product you would like to buy or press q to exit?",
             type: "input",
-            name: "buyID"
+            name: "buyID",
+            validate: function(val) {
+                if (val.toLowerCase() === "q") {
+                    connection.end();
+                    process.exit();
+                }
+                return val > 0
+            }
         },
         {
             message: "How many units would you like to purchase?",
@@ -66,7 +74,6 @@ function purchase() {
                     let newQuantity = quantityArr[i] - answer.buyUnits;
                     let prodSales = salesArr[i] + parseInt(answer.buyUnits)*priceArr[i]; 
 
-                    console.log('these are the prod sales: ' +prodSales);
 
                     let query = connection.query(
                         "UPDATE products SET ? WHERE ?",
@@ -85,11 +92,12 @@ function purchase() {
                     )
 
                     console.log('Thank you!  The total cost of your purchase was $' + (priceArr[i] * answer.buyUnits).toFixed(2));
-                    connection.end();
+                    
+                    
                 }
 
             }
-        }
+        }allProducts();
 
     })
 
