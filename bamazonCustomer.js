@@ -68,7 +68,7 @@ function purchase() {
             if (answer.buyID == idArr[i]) {
 
                 if (answer.buyUnits > quantityArr[i]) {
-                    console.log('Insufficient quantity!');
+                    console.log('Sorry, insufficient quantity!');
                 } else {
 
                     let newQuantity = quantityArr[i] - answer.buyUnits;
