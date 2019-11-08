@@ -10,7 +10,7 @@ let quantityArr = [];
 
 var connection = mysql.createConnection({
     host: 'localhost',
-    post: 3306,
+    post: 3307,
     user: 'root',
     password: 'rootroot',
     database: 'bamazon_db'
@@ -18,9 +18,11 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
     if(err) throw err;
     console.log('Connected as id: ' + connection.threadId);
+
+    allProducts();
 });
 
-allProducts();
+
 
 function allProducts() {
 
@@ -47,25 +49,24 @@ function purchase() {
             message: "What is the ID of the product you would like to buy or press q to exit?",
             type: "input",
             name: "buyID",
-            validate: function(val) {
-                if (val.toLowerCase() === "q") {
+            validate: function(buyID) {
+                if (buyID.toLowerCase() == "q") {
                     connection.end();
                     process.exit();
                 }
-                return val > 0
+                return buyID > 0;
             }
         },
         {
-            message: "How many units would you like to purchase?",
-            type: "input",
-            name: "buyUnits"
-
+                message: "How many units would you like to purchase?",
+                type: "input",
+                name: "buyUnits"
         }
     ]).then(function (answer) {
-
-
+        // console.log(answer);
+        // console.log(idArr);
         for (let i = 0; i < idArr.length; i++) {
-            if (answer.buyID == idArr[i]) {
+            if ((answer.buyID *1) === idArr[i]) {
 
                 if (answer.buyUnits > quantityArr[i]) {
                     console.log('Sorry, insufficient quantity!');
@@ -75,8 +76,8 @@ function purchase() {
                     let prodSales = salesArr[i] + parseInt(answer.buyUnits)*priceArr[i]; 
 
 
-                    let query = connection.query(
-                        "UPDATE products SET ? WHERE ?",
+                    let query = "UPDATE products SET ? WHERE ?";
+                    connection.query(query,
                         [{
                                 stock_quantity: newQuantity,
                                 product_sales: prodSales
@@ -92,7 +93,6 @@ function purchase() {
                     )
 
                     console.log('Thank you!  The total cost of your purchase was $' + (priceArr[i] * answer.buyUnits).toFixed(2));
-                    
                     
                 }
 

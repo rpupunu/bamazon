@@ -1,25 +1,25 @@
-  
 {
-    "name": "bamazon",
-    "version": "1.0.0",
-    "description": "Amazon Storefront CLI app",
-    "main": "bamazonCustomer.js",
-    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-      "type": "git",
-      "url": "git+https://github.com/rpupunu/bamazon.git"
-    },
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-      "url": "https://github.com/rpupunu/bamazon/issues"
-    },
-    "homepage": "https://github.com/rpupunu/bamazon#readme",
-    "dependencies": {
-      "cli-table": "^0.3.1",
-      "inquirer": "^7.0.0",
-      "mysql": "^2.17.1"
-    }
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "Amazon Storefront CLI app",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rpupunu/bamazon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rpupunu/bamazon/issues"
+  },
+  "homepage": "https://github.com/rpupunu/bamazon#readme",
+  "dependencies": {
+    "cli-table": "^0.3.1",
+    "console.table": "^0.10.0",
+    "inquirer": "^7.0.0",
+    "mysql": "^2.17.1"
   }
+}
